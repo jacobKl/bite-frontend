@@ -40,31 +40,37 @@ function TakeCourseScreen() {
         <ToastContainer/>
         {course ? 
             <div>
-                <img src={course.image} className="img-fluid" />
-                <h1>{course.name}</h1>
-                <p>{course.description}</p>
-                <div className="d-flex">
+                <img src={course.image} className="img-fluid " />
+                <div className="mb-3 p-3 bg-white shadow rounded">
+                    <h1>{course.name}</h1>
+                    <p>{course.description}</p>
+                </div>
+                <div className="row mb-3">
                     <div className="col-9">
-                        <h2>{course.steps[activeStep].title}</h2>
-                        <p>
-                            {course.steps[activeStep].informations}
-                        </p>
-                        {(course.steps[activeStep].question && !ended) ? 
-                            (course.steps[activeStep].question.type == 1 ? <BasicFrontendQuestion onWrong={wrong} onSuccess={goFurther} question={course.steps[activeStep].question} /> : <CheckboxFrontendQuestion onWrong={wrong} onSuccess={goFurther} question={course.steps[activeStep].question} />)
-                        : null}
+                        <div className="bg-white rounded shadow p-3">
+                            <h2>{course.steps[activeStep].title}</h2>
+                            <p>
+                                {course.steps[activeStep].informations}
+                            </p>
+                        </div>
                     </div>
     
                     <div className="col-3">
-                        <h3>Spis treści</h3>
-                        {
-                            <ul>
-                                {course.steps.map((step, j) => (
-                                    <li key={`toc-${j}`} className={activeStep == j ? 'text-primary' : ''}>{step.title}</li>
-                                ))}
-                            </ul>
-                        }
+                        <div className="bg-white p-3 rounded shadow">
+                            <h3>Spis treści</h3>
+                            {
+                                <ul>
+                                    {course.steps.map((step, j) => (
+                                        <li key={`toc-${j}`} className={activeStep == j ? 'text-primary' : ''}>{step.title}</li>
+                                    ))}
+                                </ul>
+                            }
+                        </div>
                     </div>
                 </div>
+                {(course.steps[activeStep].question && !ended) ? 
+                            (course.steps[activeStep].question.type == 1 ? <BasicFrontendQuestion onWrong={wrong} onSuccess={goFurther} question={course.steps[activeStep].question} /> : <CheckboxFrontendQuestion onWrong={wrong} onSuccess={goFurther} question={course.steps[activeStep].question} />)
+                        : null}
             </div>
         : null}
     </div>
