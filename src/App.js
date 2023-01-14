@@ -1,14 +1,16 @@
-import TrainerScreen from "./screens/TrainerScreen";
-import 'bootstrap/dist/css/bootstrap.css';
 import WithContext from "./hoc/WithContext";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import './App.scss';
+import CourseBuilderScreen from "./screens/CourseBuilderScreen/CourseBuilderScreen";
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import TrainerScreen from "./screens/TrainerScreen/TrainerScreen";
 
 function App({state, dispatch}) {
-  console.log(state)
   return (
-    <div className="App">
-      <LoginScreen/>
+    <div className="App" style={{minHeight: "100vh"}}>
+      <BrowserRouter>
+      <TrainerScreen />
+      </BrowserRouter>
     </div>
   );
 }

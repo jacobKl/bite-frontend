@@ -6,7 +6,9 @@ function WithTrainerLayout(Component) {
     return (
       <>
           <Header />
-          <Component />
+          <div className="container">
+            <Component />
+          </div>
       </>
     )
   }

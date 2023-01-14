@@ -1,6 +1,55 @@
 @import url('https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&display=swap');
 
-body {
-    font-family: 'Karma !important';
+$theme-colors: (
+    "primary": #F1D546
+); 
     
+@import "node_modules/bootstrap/scss/bootstrap";
+
+body {
+    font-family: 'Karma';
+    background-color: #efefef;
+}
+
+.button {
+    text-transform: uppercase;
+    padding: .6rem;
+    font-size: .9rem;
+    font-weight: 700;
+    border-radius: 4px;
+    -webkit-appearance: none;
+    border: none;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+
+.paper {
+    background-color: white;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.input {
+    background-color: #eaeaea;
+    padding: .5rem;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: .5rem;
+    width: 100%;
+}
+
+.btn-primary {
+    color: "white" !important;
+}
+
+.course-builder {
+    max-width: 960px;
+}
+
+.trainer-navbar {
+    background: "white" !important;
+    max-width: calc(100vw - 2rem);
+    margin: 1rem;
 }
