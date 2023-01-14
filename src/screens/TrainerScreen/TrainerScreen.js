@@ -10,7 +10,6 @@ function TrainerScreen() {
         <Routes>
           <Route path="/" exact element={<TrainerWelcomeScreen/>}></Route>
           <Route path="/add" element={<CourseBuilderScreen/>}></Route>
-          {/* <Route path="/courses" element={}></Route> */}
         </Routes>
     </div>
   )

@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CheckboxFrontendQuestion from '../../components/CheckboxFrontendQuestion/CheckboxFrontendQuestion';
 
-function TakeCourseScreen() {
+function TakeCourseScreen({state}) {
   const { id } = useParams();
   const [ course, setCourse ] = useState();
   const [ activeStep, setActiveStep ] = useState(0);
@@ -28,12 +28,15 @@ function TakeCourseScreen() {
 
   useEffect(() => {
     const getCourse = async (id) => {
-        console.log(id)
-        const response = await fetch(`http://localhost:3001/course/${id}`);
+        const response = await fetch(`http://localhost:3001/course/${id}`, {
+            headers: {
+                'Custom-Token': state.user.token
+            }
+        });
         const json = await response.json();
         setCourse(json);
     }
-    getCourse();
+    getCourse(id);
   }, []);
 
   return (

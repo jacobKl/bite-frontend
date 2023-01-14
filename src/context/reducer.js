@@ -28,7 +28,9 @@ export const initialState = {
         name: '',
         description: '',
         image: '',
-        steps: []
+        steps: [],
+        prize: 0,
+        difficulty: 1
     },
     user: {
         id: 0,
@@ -148,6 +150,10 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 user: payload
+            }
+        case 'DESTROY_USER': 
+            return {
+                ...initialState
             }
         default:
             console.log('THIS ACTION IS NOT SPECIFIED.')

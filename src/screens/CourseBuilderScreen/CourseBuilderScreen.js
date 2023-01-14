@@ -15,23 +15,25 @@ function CourseBuilderScreen({state, dispatch}) {
   }
 
   const saveCourse = () => {
-    fetch('http://localhost:3001/courses', {
+
+    fetch('http://localhost:3001/course/create', {
       method: "POST",
-      body: JSON.stringify(state.createdCourse),
+      body: JSON.stringify({...state.createdCourse, trainer_id: state.user.id}),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Custom-Token': state.user.token
       }
     })
   }
 
   const handleFile = async (e) => {
-    const name = await postFile(e);
+    const name = await postFile(e, state.user.token);
     coreCourseFieldDispatcher('image', name);
   }
 
   return (
     <main className="container d-flex align-items-center course-builder flex-column">
-        {state.createdCourse.image.length ? <img src={`${state.createdCourse.image}`} className="img-fluid mb-3" /> : null}
+        {state.createdCourse.image.length ? <img src={`http://localhost:3001/${state.createdCourse.image}`} className="img-fluid mb-3" /> : null}
     
         <div className="w-100 shadow p-3 mb-3 bg-white rounded">
             <div>
@@ -39,7 +41,6 @@ function CourseBuilderScreen({state, dispatch}) {
                 <input type="file" className="form-control mb-3" onChange={e => handleFile(e)}/>
                 <Input placeholder={"Nazwa kursu"} value={state.createdCourse.name} onInput={(e) => coreCourseFieldDispatcher('name', e.target.value)} type="input"/>
                 <Input placeholder={"Opis kursu / wstęp"} value={state.createdCourse.description} onInput={(e) => coreCourseFieldDispatcher('description', e)} type="tiny"/>
-                <Input placeholder={"Nagroda za kurs"} value={state.createdCourse.prize} onInput={(e) => coreCourseFieldDispatcher('prize', e.target.value)} type="input"/>
             </div>
         </div>
 

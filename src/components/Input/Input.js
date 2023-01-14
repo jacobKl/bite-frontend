@@ -16,7 +16,7 @@ function Input({onInput, type, value, placeholder}) {
               plugins: [
                 'image'
               ],
-              toolbar: 'undo redo | image formatselect | ' +
+              toolbar: 'undo redo | formatselect | ' +
               'bold italic backcolor | alignleft aligncenter image ',
               content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
               images_upload_url: 'http://localhost:3001/visual/save'
