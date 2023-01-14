@@ -1,16 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-function TrainerHeader() {
+function UserHeader() {
   return (
     <header className="trainer-navbar">
       <Link to="/" className="trainer-navbar-brand">Learn<span className="text-primary">Able</span></Link>
       <div className="trainer-navbar-menu">
-        <Link to="/add">Dodaj kurs</Link>
         <Link to="/logout" className="logout">Wyloguj</Link>
       </div>
     </header>
   )
 }
 
-export default TrainerHeader
+export default UserHeader

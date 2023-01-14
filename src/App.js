@@ -2,7 +2,7 @@ import WithContext from "./hoc/WithContext";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import UserScreen from "./screens/UserScreen/UserScreen";
 import './App.scss';
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter } from "react-router-dom"
 import TrainerScreen from "./screens/TrainerScreen/TrainerScreen";
 import React from "react";
 
