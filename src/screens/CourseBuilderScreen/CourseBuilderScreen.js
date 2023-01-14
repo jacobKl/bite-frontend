@@ -14,6 +14,16 @@ function CourseBuilderScreen({state, dispatch}) {
     dispatch({type: 'ADD_COURSE_STEP'});
   }
 
+  const saveCourse = () => {
+    fetch('http://localhost:3001/courses', {
+      method: "POST",
+      body: JSON.stringify(state.createdCourse),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  }
+
   return (
     <main className="container d-flex align-items-center course-builder flex-column">
         <div className="w-100 shadow p-3 mb-3 bg-white rounded">
@@ -30,6 +40,8 @@ function CourseBuilderScreen({state, dispatch}) {
         <div className="d-flex justify-content-end w-100">
             <button className="btn btn-primary" onClick={addStep}>Dodaj krok</button>
         </div>
+
+        <button class="btn btn-primary" onClick={saveCourse}>Zakończ edycję</button>
     </main>
   )
 }
