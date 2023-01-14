@@ -1,15 +1,16 @@
 import React from 'react'
 
-function Greeting() {
+function Greeting({user}) {
+  console.log(user)
   return (
-    <div className="shadow p-3 bg-white d-flex">
+    <div className="shadow p-3 bg-white d-flex mb-3">
       <div className="col-2 rounded-circle">
-        <img src="/" />
+        <img src={`${user.avatar}`} />
       </div>
-      <div className="col-8">
-        <h5 className="text-muted">@jakubklimek</h5>
-        <h3>Witaj Jakub Klimek</h3>
-        <h6 className="text-muted">Rola: Trener</h6>
+      <div className="col-4">
+        <h5 className="text-muted">@{user.nick}</h5>
+        <h3>Witaj {user.name} {user.surname}</h3>
+        <h6 className="text-muted">Rola: {user.role}</h6>
       </div>
     </div>
   )

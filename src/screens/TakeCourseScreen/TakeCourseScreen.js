@@ -28,7 +28,8 @@ function TakeCourseScreen() {
 
   useEffect(() => {
     const getCourse = async (id) => {
-        const response = await fetch('http://localhost:3003/courses');
+        console.log(id)
+        const response = await fetch(`http://localhost:3001/course/${id}`);
         const json = await response.json();
         setCourse(json);
     }
