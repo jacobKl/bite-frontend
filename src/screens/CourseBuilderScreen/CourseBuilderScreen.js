@@ -15,7 +15,6 @@ function CourseBuilderScreen({state, dispatch}) {
   }
 
   const saveCourse = () => {
-
     fetch('http://localhost:3001/course/create', {
       method: "POST",
       body: JSON.stringify({...state.createdCourse, trainer_id: state.user.id}),
@@ -50,7 +49,7 @@ function CourseBuilderScreen({state, dispatch}) {
             <button className="btn btn-primary" onClick={addStep}>Dodaj krok</button>
         </div>
 
-        <button class="btn btn-primary" onClick={saveCourse}>Zakończ edycję</button>
+        <button className="btn btn-primary" onClick={saveCourse}>Zakończ edycję</button>
     </main>
   )
 }

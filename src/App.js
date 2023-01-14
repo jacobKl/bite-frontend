@@ -12,7 +12,7 @@ function App({ state, dispatch }) {
     <div className="App" style={{ minHeight: "100vh" }}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" exact element={state.user.role === "Trainer" ? <TrainerScreen /> : (state.user.role === "User" ? <UserScreen /> : <LoginScreen />)}></Route>
+          <Route path="*" element={state.user.role === "Trainer" ? <TrainerScreen /> : (state.user.role === "User" ? <UserScreen /> : <LoginScreen />)}></Route>
           <Route path="/register" element={<RegisterScreen></RegisterScreen>}></Route>
         </Routes>
       </BrowserRouter>

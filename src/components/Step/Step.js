@@ -23,16 +23,16 @@ function Step({state, dispatch, step, id}) {
         <div className="d-flex justify-content-between">
           <h2>Rozdział {id + 1} {step.title ? '-' : null} {step.name}</h2>
           <div>
-            <button class="btn btn-light text-black" onClick={addBasicQuestion}>
+            <button className="btn btn-light text-black" onClick={addBasicQuestion}>
               <i className="fa-solid fa-question"></i>
             </button>
-            <button class="btn btn-light text-black" onClick={addCheckboxQuestion}>
-              <i class="fa-solid fa-square-check"></i>
+            <button className="btn btn-light text-black" onClick={addCheckboxQuestion}>
+              <i className="fa-solid fa-square-check"></i>
             </button>
           </div>
         </div>
         <Input placeholder={"Nazwa rozdziału"} value={step.title} onInput={(e) => courseStepFieldDispatcher('title', e.target.value, id)} type="input" />
-        <Input placeholder={"Zawartość tekstowa rozdziału"} value={step.informations} onInput={(e) => courseStepFieldDispatcher('informations', e.target.value, id)} type="tiny" />
+        <Input placeholder={"Zawartość tekstowa rozdziału"} value={step.informations} onInput={(e) => courseStepFieldDispatcher('informations', e, id)} type="tiny" />
         {step.question ? 
           step.question.type === 1 ? <BasicQuestion id={id} question={step.question} /> : (step.question.type === 2 ? <CheckboxQuestion id={id} question={step.question} /> : null)
         : null}
