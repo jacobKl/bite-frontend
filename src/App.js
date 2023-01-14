@@ -10,7 +10,8 @@ function App({ state, dispatch }) {
   return (
     <div className="App" style={{ minHeight: "100vh" }}>
       <BrowserRouter>
-        {state.user.role === "Trainer" ? <TrainerScreen /> : (state.user.role === "User" ? <UserScreen /> : <LoginScreen />)}
+        <TrainerScreen/>
+        {/* {state.user.role === "Trainer" ? <TrainerScreen /> : (state.user.role === "User" ? <UserScreen /> : <LoginScreen />)} */}
       </BrowserRouter>
     </div>
   );

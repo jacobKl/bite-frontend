@@ -27,6 +27,7 @@ export const initialState = {
     createdCourse: {
         name: '',
         description: '',
+        image: '',
         steps: []
     },
     user: {
