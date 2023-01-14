@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&display=swap');
 
+$primary: #F1D546;
 $theme-colors: (
-    "primary": #F1D546
+    "primary": $primary
 ); 
     
 @import "node_modules/bootstrap/scss/bootstrap";
@@ -41,7 +42,7 @@ body {
 }
 
 .btn-primary {
-    color: "white" !important;
+    color: white !important;
 }
 
 .course-builder {
@@ -49,7 +50,42 @@ body {
 }
 
 .trainer-navbar {
-    background: "white" !important;
-    max-width: calc(100vw - 2rem);
-    margin: 1rem;
+    background: white !important;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    padding: 1rem;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.trainer-navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: black;
+    transition: .4s;
+
+    &:hover {
+        color: $primary;
+        transition: .4s;
+    }
+}
+
+.trainer-navbar-menu {
+    display: flex;
+    height: 100%;
+    align-items: center;
+
+    & > * {
+        color: #bbb;
+        text-decoration: none;
+        margin: 0 1rem;
+        transition: .4s;
+
+        &:hover {
+            color: $primary;
+            transition: .4s;
+        }
+    }
 }

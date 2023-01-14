@@ -2,9 +2,9 @@ import React, { useContext } from 'react'
 import { AppContext } from '../context/AppContext';
 
 function WithContext(Component) {
-    return function ContextRenderer () {
+    return function ContextRenderer (props) {
     const { state, dispatch } = useContext(AppContext);
-    return <Component state={state} dispatch={dispatch} />
+    return <Component state={state} {...props} dispatch={dispatch} />
   }
 }
 

@@ -9,7 +9,7 @@ function App({state, dispatch}) {
   return (
     <div className="App" style={{minHeight: "100vh"}}>
       <BrowserRouter>
-      <TrainerScreen />
+        <TrainerScreen />
       </BrowserRouter>
     </div>
   );
