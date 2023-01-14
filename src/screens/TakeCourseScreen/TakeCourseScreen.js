@@ -40,6 +40,7 @@ function TakeCourseScreen() {
         <ToastContainer/>
         {course ? 
             <div>
+                <img src={course.image} className="img-fluid" />
                 <h1>{course.name}</h1>
                 <p>{course.description}</p>
                 <div className="d-flex">

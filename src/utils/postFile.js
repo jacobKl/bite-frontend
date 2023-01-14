@@ -7,9 +7,9 @@ const postFile = async (e) => {
     });
 
     const {
-        name
+        location
     } = await response.json();
-    return name;
+    return location;
 }
 
 export default postFile;

@@ -32,7 +32,7 @@ function Step({state, dispatch, step, id}) {
           </div>
         </div>
         <Input placeholder={"Nazwa rozdziału"} value={step.title} onInput={(e) => courseStepFieldDispatcher('title', e.target.value, id)} type="input" />
-        <Input placeholder={"Zawartość tekstowa rozdziału"} value={step.informations} onInput={(e) => courseStepFieldDispatcher('informations', e.target.value, id)} type="textarea" />
+        <Input placeholder={"Zawartość tekstowa rozdziału"} value={step.informations} onInput={(e) => courseStepFieldDispatcher('informations', e.target.value, id)} type="tiny" />
         {step.question ? 
           step.question.type === 1 ? <BasicQuestion id={id} question={step.question} /> : (step.question.type === 2 ? <CheckboxQuestion id={id} question={step.question} /> : null)
         : null}
