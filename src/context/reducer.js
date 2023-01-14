@@ -38,7 +38,8 @@ export const initialState = {
         email: '',
         money: 0,
         avatar: '',
-        role: ''
+        role: '',
+        token: ''
     }
 }
 
@@ -143,7 +144,7 @@ export const reducer = (state, action) => {
                     steps: stepsWithNotAlteredCheckboxQuestion
                 }
             }
-        case 'LOGIN_USER':
+        case 'SET_USER':
             return {
                 ...state,
                 user: payload

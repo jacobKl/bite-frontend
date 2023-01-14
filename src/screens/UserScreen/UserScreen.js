@@ -5,13 +5,13 @@ import WithUserLayout from '../../hoc/WithUserLayout';
 import WithContext from '../../hoc/WithContext';
 import UserRootScreen from '../UserRootScreen/UserRootScreen';
 
-function UserScreen({state, dispatch}) {
+function UserScreen({ state, dispatch }) {
 
   return (
     <>
       <Routes>
-        <Route path="/" exact element={<UserRootScreen/>}></Route>
-        <Route path="/course/:id" exact element={<TakeCourseScreen/>}></Route>
+        <Route path="/" exact element={<UserRootScreen />}></Route>
+        <Route path="/course/:id" exact element={<TakeCourseScreen />}></Route>
       </Routes>
     </>
   )
