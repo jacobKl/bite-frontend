@@ -29,7 +29,7 @@ export const initialState = {
         description: '',
         steps: []
     },
-    userType: undefined,
+    userType: 'User',
 }
 
 export const reducer = (state, action) => {
