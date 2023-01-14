@@ -13,37 +13,38 @@ const basicQuestion = {
 const checkboxQuestion = {
     question: '',
     answers: [
-        {valid: false, answer: ''},
-        {valid: false, answer: ''},
-        {valid: false, answer: ''},
-        {valid: false, answer: ''},
+        { valid: false, answer: '' },
+        { valid: false, answer: '' },
+        { valid: false, answer: '' },
+        { valid: false, answer: '' },
     ],
     type: 2
 }
 
-export const initialState = {   
+export const initialState = {
     userRole: '',
     coursesList: '',
     createdCourse: {
         name: '',
         description: '',
         steps: []
-    }
+    },
+    userType: undefined,
 }
 
 export const reducer = (state, action) => {
     const { type, payload } = action;
     console.log(state);
-    switch(type) {
+    switch (type) {
         case 'EDIT_COURSE_CORE_FIELD':
             return {
                 ...state,
                 createdCourse: {
                     ...state.createdCourse,
-                    [payload.name]: payload.value 
+                    [payload.name]: payload.value
                 }
             }
-        case 'ADD_COURSE_STEP': 
+        case 'ADD_COURSE_STEP':
             return {
                 ...state,
                 createdCourse: {
@@ -67,10 +68,10 @@ export const reducer = (state, action) => {
                     ]
                 }
             }
-        case 'ADD_QUESTION_TO_STEP': 
+        case 'ADD_QUESTION_TO_STEP':
             const stepsWithQuestion = state.createdCourse.steps;
             stepsWithQuestion[payload.id].question = JSON.parse(JSON.stringify(basicQuestion));
-            
+
             return {
                 ...state,
                 createdCourse: {
@@ -78,7 +79,7 @@ export const reducer = (state, action) => {
                     steps: stepsWithQuestion
                 }
             }
-        case 'EDIT_STEP_QUESTION': 
+        case 'EDIT_STEP_QUESTION':
             const stepsWithAlteredQuestion = state.createdCourse.steps;
             stepsWithAlteredQuestion[payload.id].question[payload.name] = payload.value;
 
@@ -99,7 +100,7 @@ export const reducer = (state, action) => {
                     steps: stepsWithCheckboxQuestion
                 }
             }
-        case 'MARK_PROPER_CHECKBOX_ANSWER': 
+        case 'MARK_PROPER_CHECKBOX_ANSWER':
             const stepsWithWrongCheckboxAnswer = state.createdCourse.steps;
             stepsWithWrongCheckboxAnswer[payload.id].question.answers.forEach((answer, i) => stepsWithWrongCheckboxAnswer[payload.id].question.answers[i].valid = false);
             stepsWithWrongCheckboxAnswer[payload.id].question.answers[payload.optionId].valid = true;
@@ -120,7 +121,7 @@ export const reducer = (state, action) => {
                     steps: stepsWithNotAlteredCheckboxAnswer
                 }
             }
-        case 'ALTER_CHECKBOX_QUESTION': 
+        case 'ALTER_CHECKBOX_QUESTION':
             const stepsWithNotAlteredCheckboxQuestion = state.createdCourse.steps;
             stepsWithNotAlteredCheckboxQuestion[payload.id].question.question = payload.value;
             return {
@@ -130,7 +131,7 @@ export const reducer = (state, action) => {
                     steps: stepsWithNotAlteredCheckboxQuestion
                 }
             }
-        default: 
+        default:
             console.log('THIS ACTION IS NOT SPECIFIED.')
             return state;
     }

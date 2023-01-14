@@ -1,15 +1,17 @@
 import WithContext from "./hoc/WithContext";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
+import UserScreen from "./screens/UserScreen/UserScreen";
 import './App.scss';
-import CourseBuilderScreen from "./screens/CourseBuilderScreen/CourseBuilderScreen";
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import TrainerScreen from "./screens/TrainerScreen/TrainerScreen";
+import React from "react";
 
-function App({state, dispatch}) {
+function App({ state, dispatch }) {
   return (
-    <div className="App" style={{minHeight: "100vh"}}>
+    <div className="App" style={{ minHeight: "100vh" }}>
       <BrowserRouter>
-        <TrainerScreen />
+        {state.userType == "Trainer" ? <TrainerScreen /> : null}
+        {state.userType == "User" ? <UserScreen /> : <LoginScreen />}
       </BrowserRouter>
     </div>
   );
