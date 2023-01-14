@@ -1,10 +1,16 @@
+import TrainerScreen from "./screens/TrainerScreen";
+import 'bootstrap/dist/css/bootstrap.css';
+import WithContext from "./hoc/WithContext";
+import LoginScreen from "./screens/LoginScreen/LoginScreen";
+import './App.scss';
 
-function App() {
+function App({state, dispatch}) {
+  console.log(state)
   return (
     <div className="App">
-      <h1>hello world</h1>
+      <LoginScreen/>
     </div>
   );
 }
 
-export default App;
+export default WithContext(App);
