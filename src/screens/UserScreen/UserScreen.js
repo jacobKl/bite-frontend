@@ -1,9 +1,11 @@
 import React from 'react'
+import WithContext from '../../hoc/WithContext'
 
-function UserScreen() {
+function UserScreen({ state, dispatch }) {
+
   return (
     <div>UserScreen</div>
   )
 }
 
-export default UserScreen
+export default WithContext(UserScreen)

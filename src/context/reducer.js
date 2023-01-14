@@ -29,12 +29,23 @@ export const initialState = {
         description: '',
         steps: []
     },
-    userType: undefined,
+    user: {
+        id: 0,
+        nick: '',
+        name: '',
+        surname: '',
+        email: '',
+        money: 0,
+        avatar: '',
+        role: ''
+    }
 }
 
 export const reducer = (state, action) => {
     const { type, payload } = action;
-    console.log(state);
+
+    console.log(type, payload)
+
     switch (type) {
         case 'EDIT_COURSE_CORE_FIELD':
             return {
@@ -130,6 +141,11 @@ export const reducer = (state, action) => {
                     ...state.createdCourse,
                     steps: stepsWithNotAlteredCheckboxQuestion
                 }
+            }
+        case 'LOGIN_USER':
+            return {
+                ...state,
+                user: payload
             }
         default:
             console.log('THIS ACTION IS NOT SPECIFIED.')

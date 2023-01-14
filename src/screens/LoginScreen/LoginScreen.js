@@ -1,18 +1,19 @@
 import React from 'react'
+import WithContext from '../../hoc/WithContext';
 
-async function submitLogin(e) {
-  e.preventDefault();
-  let form = e.target;
-  console.log(form)
-  let formdata = new FormData(form);
-  let result = await fetch("http://localhost:3001/user/login", {
-    method: "POST",
-    body: new URLSearchParams(formdata)
-  }).then(res => res.json())
-  console.log(result);
-}
+function LoginScreen({ state, dispatch }) {
+  async function submitLogin(e) {
+    e.preventDefault();
+    let form = e.target;
+    console.log(form)
+    let formdata = new FormData(form);
+    let result = await fetch("http://localhost:3001/user/login", {
+      method: "POST",
+      body: new URLSearchParams(formdata)
+    }).then(res => res.json())
+    dispatch({ type: 'LOGIN_USER', payload: result });
+  }
 
-function LoginScreen() {
   return (
     <main className="w-100 h-100 d-flex align-items-center justify-content-center">
       <form onSubmit={(e) => submitLogin(e)} className="d-flex flex-column paper text-center">
@@ -25,4 +26,4 @@ function LoginScreen() {
   )
 }
 
-export default LoginScreen
+export default WithContext(LoginScreen)
