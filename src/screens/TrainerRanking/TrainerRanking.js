@@ -19,11 +19,13 @@ function TrainerRanking({state}) {
     }, [])
 
     return (
-        <div>
+        <div className="row">
             {
-                users.map(user => {
-                    {user.name} {user.surname} {user.money}
-                })
+                users.map(user => (
+                    <p>
+                        {user.name} {user.surname} {user.money}
+                    </p>
+                ))
             }
         </div>
     )
