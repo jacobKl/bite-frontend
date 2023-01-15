@@ -4,11 +4,12 @@ import Greeting from '../../components/Greeting/Greeting';
 import WithContext from '../../hoc/WithContext';
 
 function UserRootScreen({state, dispatch}) {
-    const [courses, setCourses] = useState([])
+    const [courses, setCourses] = useState([]);
+    const [allCourses, setAllCourses] = useState([]);
 
     useEffect(() => {
       const getCourses = async () => {
-        const response = await fetch('http://localhost:3001/course', {
+        const response = await fetch('http://localhost:3001/course/take/' + state.user.id, {
           headers: {
             'Custom-Token': state.user.token
           }
@@ -18,15 +19,31 @@ function UserRootScreen({state, dispatch}) {
         setCourses(json);
       }
   
+      const getAllCourses = async () => {
+        const response = await fetch('http://localhost:3001/course/not/' + state.user.id, {
+          headers: {
+            'Custom-Token': state.user.token
+          }
+        });
+        const json = await response.json();
+        console.log(json)
+        setAllCourses(json);
+      }
+
       getCourses();
+      getAllCourses();
     }, [])
 
   return (
     <>
       <Greeting/>
-      <h3>Lista szkoleń</h3>
+      {courses.length ? <h3>Twoje kursy</h3> : null}
       <div class="row">
-        {courses.length ? courses.map(course => (<Course course={course} />)) : null}
+        {courses.length ? courses.map((course, j) => (<Course course={course.course} key={`courses-${j}`} progress={course.progress} />)) : null}
+      </div>
+      {allCourses.length ? <h3>Inne kursy</h3> : null}
+      <div class="row">
+        {allCourses.length ? allCourses.map((course, j) => (<Course course={course.course} key={`all-courses-${j}`} />)) : null}
       </div>
     </>
   )

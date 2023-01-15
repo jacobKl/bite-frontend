@@ -21,7 +21,7 @@ function Step({state, dispatch, step, id}) {
   return (
     <div className="shadow p-3 mb-2 rounded w-100 bg-white">
         <div className="d-flex justify-content-between">
-          <h2>Rozdział {id + 1} {step.title ? '-' : null} {step.name}</h2>
+          <h2>Rozdział {id + 1} {step.title ? '-' : null} {step.title}</h2>
           <div>
             <button className="btn btn-light text-black" onClick={addBasicQuestion}>
               <i className="fa-solid fa-question"></i>

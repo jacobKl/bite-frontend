@@ -14,7 +14,6 @@ async function submitForm(e, endpoint, dispatch) {
         body: new URLSearchParams(formdata),
     }).then(res => res.json())
     if (result.status == "success") {
-        good()
         dispatch({ type: 'SET_USER', payload: result.user });
         cookies.set("token", result.user.token)
     } else {

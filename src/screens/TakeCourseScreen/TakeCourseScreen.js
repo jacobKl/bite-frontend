@@ -14,14 +14,9 @@ function TakeCourseScreen({state}) {
   const [ ended, setEnded ] = useState(false);
 
   const good = () => toast.success('Dobra odpowiedź!');
-  const wrong = () => toast.error('Błędna odpowiedź');
+  const wrong = () => toast.error('Błędna odpowiedź!');
 
-  useEffect(() => {
-    if (!course) return;
-    console.log(JSON.stringify({
-        user_id: state.user.id,
-        course_id: course.id
-    }))
+  const addNewProgress = () => {
     fetch('http://localhost:3001/course/take', {
         method: "POST",
         body: JSON.stringify({
@@ -33,19 +28,49 @@ function TakeCourseScreen({state}) {
             'Content-Type': 'application/json'
         }
     });
-  }, [course]);
-  
+  }
+
+  const getCurrentProgress = async () => {
+    const result = await fetch('http://localhost:3001/course/take/' + state.user.id);
+    const json = result.json();
+    return json;
+  }
+
   const goFurther = () => {
     good();
     if (activeStep + 1 < course.steps.length) {
         setActiveStep(activeStep + 1);
+        setProgress(activeStep + 1);
     } else {
+        setProgress(activeStep + 1);
         setEnded(true);
     }
   }
 
+  const setProgress = () => {
+    fetch('http://localhost:3001/course/set-progress', {
+        method: "POST",
+        body: JSON.stringify({
+            user_id: state.user.id,
+            course_id: course.id
+        }),
+        headers: {
+            'Custom-Token': state.user.token,
+            'Content-Type': 'application/json'
+        }
+    });
+  }
 
   useEffect(() => {
+    const possessCurrentProgress = async (id) => {
+        const userProgresses = await getCurrentProgress();
+        const thisCourse = userProgresses.filter(progress => progress.course_id == id)[0];
+        if (!thisCourse) addNewProgress()
+        else {
+            setActiveStep(thisCourse.progress - 1)
+        };
+    }
+
     const getCourse = async (id) => {
         const response = await fetch(`http://localhost:3001/course/${id}`, {
             headers: {
@@ -58,6 +83,11 @@ function TakeCourseScreen({state}) {
             json.steps[j].question = parsed;
         });
         setCourse(json);
+
+        if (json) {
+            possessCurrentProgress(json.id);
+        }
+        
     }
     getCourse(id);
   }, []);
@@ -66,7 +96,7 @@ function TakeCourseScreen({state}) {
     <div>
         <ToastContainer/>
         {course ? 
-            <div>
+            <div className="mb-5">
                 <img src={'http://localhost:3001/' + course.image} className="img-fluid mb-3 rounded" style={{maxHeight: "300px", objectFit: "cover", width: "100%"}} />
                 <div className="mb-3 p-3 bg-white shadow rounded">
                     <div className="d-flex align-items-center justify-content-between">
