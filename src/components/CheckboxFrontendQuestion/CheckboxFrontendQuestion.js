@@ -16,7 +16,7 @@ function CheckboxFrontendQuestion({question, onSuccess, onWrong}) {
       {
           question.answers.map((answer) => (
               <div className="d-flex align-items-center">
-                <input type="checkbox" class="form-check-input m-0 me-2" selected="false" onChange={() => onChange(answer.valid)} />
+                <input type="checkbox" className="form-check-input m-0 me-2" selected="false" onChange={() => onChange(answer.valid)} />
                 <p className="mb-0 mt-1">{answer.answer}</p>
               </div>
           ))

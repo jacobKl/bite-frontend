@@ -9,13 +9,32 @@ import CheckboxFrontendQuestion from '../../components/CheckboxFrontendQuestion/
 
 function TakeCourseScreen({state}) {
   const { id } = useParams();
-  const [ course, setCourse ] = useState();
+  const [ course, setCourse ] = useState(false);
   const [ activeStep, setActiveStep ] = useState(0);
   const [ ended, setEnded ] = useState(false);
 
-  const good = () => toast.success('Dobra odpowiedź!')
+  const good = () => toast.success('Dobra odpowiedź!');
   const wrong = () => toast.error('Błędna odpowiedź');
 
+  useEffect(() => {
+    if (!course) return;
+    console.log(JSON.stringify({
+        user_id: state.user.id,
+        course_id: course.id
+    }))
+    fetch('http://localhost:3001/course/take', {
+        method: "POST",
+        body: JSON.stringify({
+            user_id: state.user.id,
+            course_id: course.id
+        }),
+        headers: {
+            'Custom-Token': state.user.token,
+            'Content-Type': 'application/json'
+        }
+    });
+  }, [course]);
+  
   const goFurther = () => {
     good();
     if (activeStep + 1 < course.steps.length) {
@@ -34,6 +53,10 @@ function TakeCourseScreen({state}) {
             }
         });
         const json = await response.json();
+        json.steps.forEach((step,j) => {
+            const parsed = JSON.parse(step.questions);
+            json.steps[j].question = parsed;
+        });
         setCourse(json);
     }
     getCourse(id);
@@ -76,7 +99,7 @@ function TakeCourseScreen({state}) {
                         </div>
                     </div>
                 </div>
-                {(course.steps[activeStep].question) ? 
+                {(course.steps[activeStep].question && !ended) ? 
                             (course.steps[activeStep].question.type == 1 ? <BasicFrontendQuestion onWrong={wrong} onSuccess={goFurther} question={course.steps[activeStep].question} /> : <CheckboxFrontendQuestion onWrong={wrong} onSuccess={goFurther} question={course.steps[activeStep].question} />)
                         : null}
             </div>
