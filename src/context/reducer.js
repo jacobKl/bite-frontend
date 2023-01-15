@@ -23,6 +23,7 @@ const checkboxQuestion = {
 
 export const initialState = {
     userRole: '',
+    cookiesChecked: false,
     coursesList: '',
     createdCourse: {
         name: '',
@@ -151,7 +152,7 @@ export const reducer = (state, action) => {
                 ...state,
                 user: payload
             }
-        case 'DESTROY_USER': 
+        case 'DESTROY_USER':
             return {
                 ...initialState
             }

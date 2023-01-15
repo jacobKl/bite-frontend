@@ -1,11 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import WithContext from '../../hoc/WithContext';
+import Cookies from 'universal-cookie'
 
-function TrainerHeader({state, dispatch}) {
+function TrainerHeader({ state, dispatch }) {
 
+  const cookies = new Cookies()
   const destroySession = () => {
-    dispatch({type: 'DESTROY_USER'})
+    dispatch({ type: 'DESTROY_USER' })
+    cookies.remove("token")
   }
 
   return (
