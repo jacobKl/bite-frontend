@@ -1,9 +1,9 @@
 import React from 'react'
 import WithContext from '../../hoc/WithContext';
 
-function Greeting({state}) {
+function Greeting({ state }) {
   return (
-    <div className="shadow p-3 bg-white d-flex mb-3">
+    <div className="shadow p-3 bg-white d-flex mb-3 justify-content-between">
       {/* <div className="col-2 rounded-circle">
         <img src={`${state.user.avatar}`} />
       </div> */}
@@ -12,6 +12,7 @@ function Greeting({state}) {
         <h3>Witaj {state.user.name} {state.user.surname}</h3>
         <h6 className="text-muted">Rola: {state.user.role == 'Trainer' ? 'Trener' : 'Uczeń'}</h6>
       </div>
+      {state.user.role == 'User' ? <h5>Twoje monety: {state.user.money}</h5> : null}
     </div>
   )
 }
