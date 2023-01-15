@@ -44,17 +44,21 @@ function TakeCourseScreen({state}) {
         <ToastContainer/>
         {course ? 
             <div>
-                <img src={course.image} className="img-fluid " />
+                <img src={'http://localhost:3001/' + course.image} className="img-fluid mb-3 rounded" style={{maxHeight: "300px", objectFit: "cover", width: "100%"}} />
                 <div className="mb-3 p-3 bg-white shadow rounded">
-                    <h1>{course.name}</h1>
-                    <p>{course.description}</p>
+                    <div className="d-flex align-items-center justify-content-between">
+                        <h1>{course.name}</h1>
+                        <p className="text-muted">
+                            Postęp: {activeStep + 1} / {course.steps.length}
+                        </p>
+                    </div>
+                    <p dangerouslySetInnerHTML={{__html: course.description}}></p>
                 </div>
                 <div className="row mb-3">
                     <div className="col-9">
                         <div className="bg-white rounded shadow p-3">
                             <h2>{course.steps[activeStep].title}</h2>
-                            <p>
-                                {course.steps[activeStep].informations}
+                            <p dangerouslySetInnerHTML={{__html: course.steps[activeStep].informations}}>
                             </p>
                         </div>
                     </div>
@@ -72,7 +76,7 @@ function TakeCourseScreen({state}) {
                         </div>
                     </div>
                 </div>
-                {(course.steps[activeStep].question && !ended) ? 
+                {(course.steps[activeStep].question) ? 
                             (course.steps[activeStep].question.type == 1 ? <BasicFrontendQuestion onWrong={wrong} onSuccess={goFurther} question={course.steps[activeStep].question} /> : <CheckboxFrontendQuestion onWrong={wrong} onSuccess={goFurther} question={course.steps[activeStep].question} />)
                         : null}
             </div>

@@ -9,7 +9,7 @@ function Course({course}) {
             <img src={'http://localhost:3001/' + course.image} class="img-fluid"/>
             <div className="bg-white p-3">
                 <h3>{course.name}</h3>
-                <p>{course.description}</p>
+                <p dangerouslySetInnerHTML={{__html: course.description}}></p>
                 <Link className="btn btn-primary w-100" to={`/course/${course.id}`}>Zacznij kurs</Link>
             </div>
         </div>
