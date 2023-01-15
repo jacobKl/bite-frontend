@@ -19,25 +19,16 @@ function UserRanking() {
     }, [])
 
     return (
-        <div className="row">
-            <table className="table">
-                <thead className="dark">
-                <tr>
-                    <th scope="col">Imię</th>
-                    <th scope="col">Nazwisko</th>
-                    <th scope="col">Pseudonim</th>
-                    <th scope="col">Punkty</th>
-                </tr>
+        <div className="d-flex justify-content-center flex-column align-items-center">
+            <h3>Ranking kredytów</h3>
+            <table className="table table-light shadow" style={{maxWidth: "768px"}}>
+                <thead>
+                    <tr><th>Imię</th><th>Nazwisko</th><th>Kredyty</th></tr>
                 </thead>
                 <tbody>
-                {
+                {   
                     users.map(user => (
-                        <tr>
-                            <th>{user.name}</th>
-                            <td>{user.surname}</td>
-                            <td>{user.nick}</td>
-                            <td>{user.money}</td>
-                        </tr>
+                        <tr><td>{user.name}</td><td>{user.surname}</td><td>{user.money}</td></tr>
                     ))
                 }
                 </tbody>

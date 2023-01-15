@@ -22,8 +22,8 @@ function TrainerWelcomeScreen({state}) {
       <h3>Twoje kursy</h3>
       <div className="row">
         {(yourCourses.map((course, j) => (
-            <div className="col-4" key={`course-${j}`}>
-              <div className="shadow mb-2 bg-white">
+            <div className="col-4 mb-3" key={`course-${j}`}>
+              <div className="shadow h-100 mb-2 bg-white">
                 <img className="img-fluid" src={'http://localhost:3001/' + course.image} />
                 <div className="p-3">
                   <h2 className="mb-0">{course.name}</h2>

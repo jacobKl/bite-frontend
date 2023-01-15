@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 function Course({ course, progress = 0 }) {
   return (
-    <div class="col-4">
-      <div className="bg-white shadow rounded mb-3 overflow-hidden">
+    <div class="col-4 mb-3">
+      <div className="bg-white h-100 shadow rounded mb-3 overflow-hidden">
         <img src={'http://localhost:3001/' + course.image} class="img-fluid" />
         <div className="bg-white p-3">
           <h5>{course.prize}</h5>

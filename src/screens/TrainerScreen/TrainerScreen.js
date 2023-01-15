@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router';
 import WithTrainerLayout from '../../hoc/WithTrainerLayout';
 import CourseBuilderScreen from '../CourseBuilderScreen/CourseBuilderScreen';
 import TrainerWelcomeScreen from '../TrainerWelcomeScreen/TrainerWelcomeScreen';
-import TrainerRanking from "../TrainerRanking/TrainerRanking";
+import UserRanking from '../UserRanking/UserRanking';
 
 function TrainerScreen() {
   return (
@@ -11,7 +11,7 @@ function TrainerScreen() {
         <Routes>
           <Route path="/" exact element={<TrainerWelcomeScreen/>}></Route>
             <Route path="/add" element={<CourseBuilderScreen/>}></Route>
-            <Route path="/ranking" element={<TrainerRanking/>}></Route>
+            <Route path="/ranking" element={<UserRanking/>}></Route>
         </Routes>
     </div>
   )
