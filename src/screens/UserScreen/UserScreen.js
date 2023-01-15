@@ -2,11 +2,10 @@ import React from 'react'
 import TakeCourseScreen from '../TakeCourseScreen/TakeCourseScreen';
 import { Routes, Route } from 'react-router-dom';
 import WithUserLayout from '../../hoc/WithUserLayout';
-import WithContext from '../../hoc/WithContext';
 import UserRootScreen from '../UserRootScreen/UserRootScreen';
 import UserRanking from "../UserRanking/UserRanking";
 
-function UserScreen({ state, dispatch }) {
+function UserScreen() {
 
   return (
     <>
@@ -19,4 +18,4 @@ function UserScreen({ state, dispatch }) {
   )
 }
 
-export default WithUserLayout(WithContext(UserScreen));
+export default WithUserLayout(UserScreen);

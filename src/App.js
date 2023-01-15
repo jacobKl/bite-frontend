@@ -19,7 +19,6 @@ function App({ state, dispatch }) {
   const cookies = new Cookies();
   if (state.user.token == "") {
     if (cookies.get("token") != undefined) {
-      console.log(cookies.get("token"))
       getUser(cookies.get("token"))
     }
   }

@@ -1,4 +1,3 @@
-import WithContext from "../../hoc/WithContext";
 import {useEffect, useState} from "react";
 
 function UserRanking() {
@@ -37,4 +36,4 @@ function UserRanking() {
     )
 }
 
-export default WithContext(UserRanking);
+export default UserRanking;

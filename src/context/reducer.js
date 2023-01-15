@@ -51,8 +51,6 @@ export const initialState = {
 export const reducer = (state, action) => {
     const { type, payload } = action;
 
-    console.log(type, payload)
-
     switch (type) {
         case 'EDIT_COURSE_CORE_FIELD':
             return {

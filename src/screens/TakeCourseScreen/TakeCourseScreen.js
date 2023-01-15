@@ -1,31 +1,28 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import WithContext from '../../hoc/WithContext';
 import BasicFrontendQuestion from '../../components/BasicFrontendQuestion/ BasicFrontendQuestion';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CheckboxFrontendQuestion from '../../components/CheckboxFrontendQuestion/CheckboxFrontendQuestion';
-import { Link } from 'react-router-dom';
-import html2canvas from 'html2canvas'
+import CourseFinished from '../../components/CourseFinished/CourseFinished';
 
 function TakeCourseScreen({ state }) {
     const { id } = useParams();
     const [course, setCourse] = useState(false);
     const [courseFinished, setCourseFinished] = useState(false);
     const [activeStep, setActiveStep] = useState(0);
-    const [ended, setEnded] = useState(false);
 
-    const exportRef = useRef()
 
     const good = () => toast.success('Dobra odpowiedź!');
     const wrong = () => toast.error('Błędna odpowiedź!');
 
-    const addNewProgress = () => {
+    const addNewProgress = (id) => {
         fetch('http://localhost:3001/course/take', {
             method: "POST",
             body: JSON.stringify({
                 user_id: state.user.id,
-                course_id: course.id
+                course_id: id
             }),
             headers: {
                 'Custom-Token': state.user.token,
@@ -47,7 +44,8 @@ function TakeCourseScreen({ state }) {
             setProgress(activeStep + 1);
         } else {
             setProgress(activeStep + 1);
-            setEnded(true);
+            endCourse();
+            setCourseFinished(true);
         }
     }
 
@@ -65,26 +63,7 @@ function TakeCourseScreen({ state }) {
         });
     }
 
-    const exportAsImage = async (el, imageFileName) => {
-        const canvas = await html2canvas(el);
-        const image = canvas.toDataURL("image/png", 1.0);
-        downloadImage(image, imageFileName);
-    }; const downloadImage = (blob, fileName) => {
-        const fakeLink = window.document.createElement("a");
-        fakeLink.style = "display:none;";
-        fakeLink.download = fileName;
-
-        fakeLink.href = blob;
-
-        document.body.appendChild(fakeLink);
-        fakeLink.click();
-        document.body.removeChild(fakeLink);
-
-        fakeLink.remove();
-    };
-
     const endCourse = async () => {
-        console.log("finished")
         fetch("http://localhost:3001/course/finish/" + course.id, {
             method: "POST",
             body: JSON.stringify({ userid: state.user.id, prize: course.prize }),
@@ -95,23 +74,20 @@ function TakeCourseScreen({ state }) {
     }
 
     useEffect(() => {
-
-        const possessCurrentProgress = async (id) => {
+        const possessCurrentProgress = async (id, steps) => {
             const userProgresses = await getCurrentProgress();
 
             const thisCourse = userProgresses.filter(progress => progress.course_id == id)[0];
-            setCourseFinished(thisCourse.finished)
-            console.log(thisCourse)
-            if (parseInt(thisCourse.progress) >= thisCourse.course.steps.length) {
-                if (!thisCourse.finished) {
-                    endCourse()
+
+            if (thisCourse) {
+                if (thisCourse.progress > steps.length) {
+                    setCourseFinished(true)
                 }
-                setCourseFinished(true)
             }
-            if (!thisCourse) addNewProgress()
+            if (!thisCourse) addNewProgress(id)
             else {
                 setActiveStep(thisCourse.progress - 1)
-            };
+            }
         }
 
         const getCourse = async (id) => {
@@ -130,7 +106,7 @@ function TakeCourseScreen({ state }) {
             setCourse(json);
 
             if (json) {
-                possessCurrentProgress(json.id);
+                possessCurrentProgress(json.id, json.steps);
             }
 
         }
@@ -140,7 +116,7 @@ function TakeCourseScreen({ state }) {
     return (
         <div>
             <ToastContainer />
-            {courseFinished ? (course ?
+            {!courseFinished ? (course ?
                 <div className="mb-5">
                     <img src={'http://localhost:3001/' + course.image} className="img-fluid mb-3 rounded"
                         style={{ maxHeight: "300px", objectFit: "cover", width: "100%" }} />
@@ -160,11 +136,9 @@ function TakeCourseScreen({ state }) {
                                 <p dangerouslySetInnerHTML={{ __html: course.steps[activeStep].informations }}>
                                 </p>
                                 <div className="row mb-3">
-                                    {
-                                        JSON.parse(course.steps[activeStep].attachemnts).map(img => (
+                                        {course.steps[activeStep].attachemnts ? JSON.parse(course.steps[activeStep].attachemnts).map(img => (
                                             <a href={'http://localhost:3001/' + img}><i className="fa-solid fa-file"></i> {img}</a>
-                                        ))
-                                    }
+                                        )) : null}
                                 </div>
                             </div>
                         </div>
@@ -183,30 +157,13 @@ function TakeCourseScreen({ state }) {
                             </div>
                         </div>
                     </div>
-                    (course.steps[activeStep].question.type == 1 ?
+                    {course.steps[activeStep].question.type == 1 ?
                     <BasicFrontendQuestion onWrong={wrong} onSuccess={goFurther}
-                        question={course.steps[activeStep].question} /> :
-                    <CheckboxFrontendQuestion onWrong={wrong} onSuccess={goFurther}
-                        question={course.steps[activeStep].question} />)
+                        question={course.steps[activeStep].question} /> : (course.steps[activeStep].question.type == 2 ? <CheckboxFrontendQuestion onWrong={wrong} onSuccess={goFurther}
+                            question={course.steps[activeStep].question} /> : <button onClick={goFurther} class="btn btn-primary">Dalej</button>)}
                 </div>
                 : null) :
-                <div className="mb-5">
-                    <div className="mb-3 p-3 bg-white shadow rounded">
-                        <div className="d-flex flex-column align-items-center justify-content-center">
-                            <div ref={exportRef} style={{ padding: 50 }} className="d-flex flex-column">
-                                <h3 className='text-center'>Learn<span className="text-primary">Able</span></h3>
-                                <h1 className='text-center mt-5'>Gratulacje, ukończyłeś kurs</h1>
-                                <h3 className='text-center mt-5'>{state.user.name} {state.user.surname}</h3>
-                                <h2 className='text-center mt-5'>Potwierdzenie ukończenia</h2>
-                                <h3 className='text-center mt-1'>"{course.name}"</h3>
-                            </div>
-
-                            <Link style={{ color: 'black', fontSize: 30 }} to={"/"} className='btn btn-primary'>Moje kursy</Link>
-                            <button style={{ color: 'black', fontSize: 30 }} onClick={() => exportAsImage(exportRef.current, "Certyfikat - " + course.name)} className="btn btn-primary mt-5 mb-5">Pobierz</button>
-                        </div>
-
-                    </div>
-                </div>
+                <CourseFinished course={course} user={state.user}/>
             }
 
         </div>

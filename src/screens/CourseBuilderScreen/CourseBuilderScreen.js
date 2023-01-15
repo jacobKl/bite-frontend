@@ -1,10 +1,13 @@
-import React, { useRef } from 'react'
+import React from 'react'
+import { useNavigate } from 'react-router';
 import Input from '../../components/Input/Input';
 import Step from '../../components/Step/Step';
 import WithContext from '../../hoc/WithContext';
 import postFile from '../../utils/postFile';
 
 function CourseBuilderScreen({state, dispatch}) { 
+
+  const navigate = useNavigate();
 
   const coreCourseFieldDispatcher = (name, value) => {
     dispatch({type: 'EDIT_COURSE_CORE_FIELD', payload: {name: name, value: value}});
@@ -22,7 +25,11 @@ function CourseBuilderScreen({state, dispatch}) {
         'Content-Type': 'application/json',
         'Custom-Token': state.user.token
       }
+    }).then(res => {
+      navigate('/');
     })
+
+
   }
 
   const handleFile = async (e) => {
@@ -40,7 +47,7 @@ function CourseBuilderScreen({state, dispatch}) {
                 <input type="file" className="form-control mb-3" onChange={e => handleFile(e)}/>
                 <Input placeholder={"Nazwa kursu"} value={state.createdCourse.name} onInput={(e) => coreCourseFieldDispatcher('name', e.target.value)} type="input"/>
                 <Input placeholder={"Opis kursu / wstęp"} value={state.createdCourse.description} onInput={(e) => coreCourseFieldDispatcher('description', e)} type="tiny"/>
-                <Input placeholder={"Nagroda za ukończenie kursu"} value={state.createdCourse.prize} onInput={(e) => coreCourseFieldDispatcher('description', e)} type="tiny"/>
+                <Input placeholder={"Nagroda za ukończenie kursu"} value={state.createdCourse.prize} onInput={(e) => coreCourseFieldDispatcher('prize', e.target.value)} type="input"/>
             </div>
         </div>
 

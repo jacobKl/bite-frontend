@@ -3,7 +3,7 @@ import Course from '../../components/Course/Course';
 import Greeting from '../../components/Greeting/Greeting';
 import WithContext from '../../hoc/WithContext';
 
-function UserRootScreen({ state, dispatch }) {
+function UserRootScreen({ state }) {
   const [courses, setCourses] = useState([]);
   const [allCourses, setAllCourses] = useState([]);
 
@@ -15,7 +15,6 @@ function UserRootScreen({ state, dispatch }) {
         }
       });
       const json = await response.json();
-      console.log(json)
       setCourses(json);
     }
 
@@ -26,7 +25,6 @@ function UserRootScreen({ state, dispatch }) {
         }
       });
       const json = await response.json();
-      console.log("render", json)
       setAllCourses(json);
     }
 
