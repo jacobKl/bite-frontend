@@ -40,6 +40,7 @@ function CourseBuilderScreen({state, dispatch}) {
                 <input type="file" className="form-control mb-3" onChange={e => handleFile(e)}/>
                 <Input placeholder={"Nazwa kursu"} value={state.createdCourse.name} onInput={(e) => coreCourseFieldDispatcher('name', e.target.value)} type="input"/>
                 <Input placeholder={"Opis kursu / wstęp"} value={state.createdCourse.description} onInput={(e) => coreCourseFieldDispatcher('description', e)} type="tiny"/>
+                <Input placeholder={"Nagroda za ukończenie kursu"} value={state.createdCourse.prize} onInput={(e) => coreCourseFieldDispatcher('description', e)} type="tiny"/>
             </div>
         </div>
 

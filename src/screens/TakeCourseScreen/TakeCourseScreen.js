@@ -116,10 +116,10 @@ function TakeCourseScreen({state}) {
                                 <h2>{course.steps[activeStep].title}</h2>
                                 <p dangerouslySetInnerHTML={{__html: course.steps[activeStep].informations}}>
                                 </p>
-                                <div>
+                                <div className="row mb-3">
                                     {
                                         JSON.parse(course.steps[activeStep].attachemnts).map(img => (
-                                            <a href={'http://localhost:3001/' + img}>file</a>
+                                            <a href={'http://localhost:3001/' + img}><i className="fa-solid fa-file"></i> {img}</a>
                                         ))
                                     }
                                 </div>
