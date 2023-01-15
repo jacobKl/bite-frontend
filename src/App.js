@@ -11,7 +11,6 @@ import Cookies from 'universal-cookie';
 function App({ state, dispatch }) {
   async function getUser(token) {
     let result = await fetch("http://localhost:3001/user/getuser", { method: "GET", headers: { "Custom-Token": token } }).then(res => res.json())
-    console.log(result)
     if (result.status == "success") {
       dispatch({ type: "SET_USER", payload: result.user })
     }
