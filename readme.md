@@ -14,11 +14,11 @@ User can be registered as teacher or student, teachers have privilege to create 
 
 ![student](screenshots/student_view.jpg)
 
-### Teacher view
+### Taking course view
 
-![teacher](screenshots/teacher_view.jpg)
+![teacher](screenshots/taking_view.jpg)
 
-### Creating course
+### Creating course view
 
 ![course](screenshots/course_view.jpg)
 
