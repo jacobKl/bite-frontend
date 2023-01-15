@@ -11,6 +11,7 @@ import Cookies from 'universal-cookie';
 function App({ state, dispatch }) {
   async function getUser(token) {
     let result = await fetch("http://localhost:3001/user/getuser", { method: "GET", headers: { "Custom-Token": token } }).then(res => res.json())
+    console.log(result)
     if (result.status == "success") {
       dispatch({ type: "SET_USER", payload: result.user })
     }
@@ -28,7 +29,7 @@ function App({ state, dispatch }) {
     <div className="App" style={{ minHeight: "100vh" }}>
       <BrowserRouter>
         <Routes>
-          <Route path="*" element={state.user.role === "Trainer" ? <TrainerScreen /> : (state.user.role === "User" ? <UserScreen /> : <LoginScreen />)}></Route>
+          <Route path="*" element={state.user.role == "Trainer" ? <TrainerScreen /> : (state.user.role == "User" ? <UserScreen /> : <LoginScreen />)}></Route>
           <Route path="/register" element={<RegisterScreen></RegisterScreen>}></Route>
         </Routes>
       </BrowserRouter>
