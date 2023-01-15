@@ -4,6 +4,8 @@ const courseStep = {
     question: {}
 }
 
+const basicFiles = []
+
 const basicQuestion = {
     question: '',
     answer: '',
@@ -95,6 +97,17 @@ export const reducer = (state, action) => {
                     steps: stepsWithQuestion
                 }
             }
+        case 'ADD_FILES_TO_STEP':
+            const stepsWithFiles = state.createdCourse.steps;
+            stepsWithFiles[payload.id].attachments = JSON.stringify(payload.tab);
+
+            return {
+                ...state,
+                createdCourse: {
+                    ...state.createdCourse,
+                    steps: stepsWithFiles
+                }
+            }
         case 'EDIT_STEP_QUESTION':
             const stepsWithAlteredQuestion = state.createdCourse.steps;
             stepsWithAlteredQuestion[payload.id].question[payload.name] = payload.value;
@@ -151,6 +164,11 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 user: payload
+            }
+        case 'SET_FILES':
+            return {
+                ...state,
+                files: payload
             }
         case 'DESTROY_USER':
             return {

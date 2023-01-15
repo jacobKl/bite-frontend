@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router'
 import WithContext from '../../hoc/WithContext';
-import { Routes, Route } from 'react-router-dom';
 import BasicFrontendQuestion from '../../components/BasicFrontendQuestion/ BasicFrontendQuestion';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CheckboxFrontendQuestion from '../../components/CheckboxFrontendQuestion/CheckboxFrontendQuestion';
 import { Link } from 'react-router-dom';
@@ -122,6 +121,7 @@ function TakeCourseScreen({ state }) {
                 }
             });
             const json = await response.json();
+
             json.steps.forEach((step, j) => {
                 const parsed = JSON.parse(step.questions);
                 json.steps[j].question = parsed;
@@ -140,9 +140,10 @@ function TakeCourseScreen({ state }) {
     return (
         <div>
             <ToastContainer />
-            {!courseFinished ? (course ?
+            {courseFinished ? (course ?
                 <div className="mb-5">
-                    <img src={'http://localhost:3001/' + course.image} className="img-fluid mb-3 rounded" style={{ maxHeight: "300px", objectFit: "cover", width: "100%" }} />
+                    <img src={'http://localhost:3001/' + course.image} className="img-fluid mb-3 rounded"
+                        style={{ maxHeight: "300px", objectFit: "cover", width: "100%" }} />
                     <div className="mb-3 p-3 bg-white shadow rounded">
                         <div className="d-flex align-items-center justify-content-between">
                             <h1>{course.name}</h1>
@@ -158,6 +159,13 @@ function TakeCourseScreen({ state }) {
                                 <h2>{course.steps[activeStep].title}</h2>
                                 <p dangerouslySetInnerHTML={{ __html: course.steps[activeStep].informations }}>
                                 </p>
+                                <div className="row mb-3">
+                                    {
+                                        JSON.parse(course.steps[activeStep].attachemnts).map(img => (
+                                            <a href={'http://localhost:3001/' + img}><i className="fa-solid fa-file"></i> {img}</a>
+                                        ))
+                                    }
+                                </div>
                             </div>
                         </div>
 
@@ -167,16 +175,19 @@ function TakeCourseScreen({ state }) {
                                 {
                                     <ul>
                                         {course.steps.map((step, j) => (
-                                            <li key={`toc-${j}`} className={activeStep == j ? 'text-primary' : ''}>{step.title}</li>
+                                            <li key={`toc-${j}`}
+                                                className={activeStep == j ? 'text-primary' : ''}>{step.title}</li>
                                         ))}
                                     </ul>
                                 }
                             </div>
                         </div>
                     </div>
-                    {(course.steps[activeStep].question && !ended) ?
-                        (course.steps[activeStep].question.type == 1 ? <BasicFrontendQuestion onWrong={wrong} onSuccess={goFurther} question={course.steps[activeStep].question} /> : <CheckboxFrontendQuestion onWrong={wrong} onSuccess={goFurther} question={course.steps[activeStep].question} />)
-                        : null}
+                    (course.steps[activeStep].question.type == 1 ?
+                    <BasicFrontendQuestion onWrong={wrong} onSuccess={goFurther}
+                        question={course.steps[activeStep].question} /> :
+                    <CheckboxFrontendQuestion onWrong={wrong} onSuccess={goFurther}
+                        question={course.steps[activeStep].question} />)
                 </div>
                 : null) :
                 <div className="mb-5">
@@ -197,6 +208,7 @@ function TakeCourseScreen({ state }) {
                     </div>
                 </div>
             }
+
         </div>
     )
 }
